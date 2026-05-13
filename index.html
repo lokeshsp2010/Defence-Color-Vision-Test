@@ -35,7 +35,7 @@
             font-weight: bold;
         }
 
-        /* Canvas & Visuals */
+
         canvas {
             border-radius: 50%;
             margin: 20px auto;
@@ -62,7 +62,7 @@
             transition: background 0.1s;
         }
 
-        /* Buttons */
+
         .btn-grid {
             display: flex;
             flex-wrap: wrap;
@@ -87,7 +87,7 @@
             background: #2980b9;
         }
 
-        /* Utility */
+
         .hidden {
             display: none !important;
         }
@@ -118,7 +118,7 @@
             border: 1px solid #f5c6cb;
         }
 
-        /* Resources Section */
+
         .resources {
             margin-top: 30px;
             padding: 20px;
@@ -162,7 +162,7 @@
     <div class="container">
         <h1>Defence Color Vision Test</h1>
 
-        <!-- Phase 1: Ishihara -->
+
         <div id="ishihara-section">
             <p id="ishihara-status">Phase 1: Ishihara Test (Plate 1 of 5)</p>
             <p style="font-weight: normal; font-size: 14px;">Select the number you see.</p>
@@ -170,7 +170,7 @@
             <div class="btn-grid" id="ishihara-btns"></div>
         </div>
 
-        <!-- Phase 2: Lantern -->
+
         <div id="lantern-section" class="hidden">
             <p id="lantern-status">Phase 2: Lantern Test (Round 1 of 6)</p>
             <p id="lantern-instruction" style="color: #e74c3c;">Get ready... lights will appear shortly.</p>
@@ -181,15 +181,15 @@
             <div class="btn-grid" id="lantern-btns"></div>
         </div>
 
-        <!-- Results -->
+
         <div id="result-section" class="hidden">
             <h2>Medical Board Result</h2>
             <div id="final-verdict" class="result-box"></div>
             <p id="final-details"></p>
 
-            <!-- Verified Resources & Deep Dives -->
+
             <div class="resources">
-                <h3>📚 Verified Resources & Deep Dives</h3>
+                <h3> Verified Resources & Deep Dives</h3>
                 <ul>
                     <li><strong>Clinical Ishihara Test:</strong> <a
                             href="https://enchroma.com/pages/color-blindness-test" target="_blank">EnChroma Color
@@ -214,7 +214,7 @@
     </div>
 
     <script>
-        // --- DATA ---
+
         const ishiharaPlates = [
             { num: 12, fg: [220, 50, 50], bg: [160, 180, 70], options: [12, 17, 21, 8] },
             { num: 8, fg: [230, 80, 60], bg: [120, 170, 80], options: [8, 3, 6, 9] },
@@ -223,7 +223,7 @@
             { num: 5, fg: [180, 50, 160], bg: [100, 140, 180], options: [5, 2, 8, 3] }
         ];
 
-        // 6 Required Lantern Rounds
+
         const lanternRounds = [
             { top: 'Red', bot: 'Green', topColor: '#ff2a2a', botColor: '#2aff2a' },
             { top: 'White', bot: 'White', topColor: '#ffffee', botColor: '#ffffee' },
@@ -233,18 +233,18 @@
             { top: 'Green', bot: 'Green', topColor: '#2aff2a', botColor: '#2aff2a' }
         ];
 
-        // --- STATE ---
+
         let currentStep = 0;
         let ishiharaScore = 0;
         let lanternScore = 0;
         let lanternTimeout;
 
-        // --- DOM ELEMENTS ---
+
         const ishiharaSec = document.getElementById('ishihara-section');
         const lanternSec = document.getElementById('lantern-section');
         const resultSec = document.getElementById('result-section');
 
-        // --- ISHIHARA LOGIC ---
+
         function loadIshihara() {
             if (currentStep >= ishiharaPlates.length) {
                 if (ishiharaScore === 5) showResults("CP-1");
@@ -310,12 +310,12 @@
             }
         }
 
-        // --- LANTERN LOGIC ---
+
         function startLantern() {
             ishiharaSec.classList.add('hidden');
             lanternSec.classList.remove('hidden');
 
-            // Shuffle the 6 rounds so it's not predictable
+
             lanternRounds.sort(() => Math.random() - 0.5);
 
             currentStep = 0;
@@ -335,30 +335,30 @@
             const btnContainer = document.getElementById('lantern-btns');
             const instruction = document.getElementById('lantern-instruction');
 
-            // Reset UI for the new round
+
             document.getElementById('lantern-status').innerText = `Phase 2: Lantern Test (Round ${currentStep + 1} of 6)`;
             instruction.innerText = "Memorize the colors. They will disappear in 1.2s";
             instruction.style.color = "#2c3e50";
             btnContainer.innerHTML = ''; // Hide buttons initially
 
-            // Blackout state before showing lights
+
             topLight.style.background = '#111'; topLight.style.boxShadow = 'none';
             botLight.style.background = '#111'; botLight.style.boxShadow = 'none';
 
-            // Show lights after a short delay
+
             setTimeout(() => {
-                // TURN LIGHTS ON
+
                 topLight.style.background = round.topColor;
                 topLight.style.boxShadow = `0 0 25px ${round.topColor}`;
 
                 botLight.style.background = round.botColor;
                 botLight.style.boxShadow = `0 0 25px ${round.botColor}`;
 
-                // Wait exactly 1.2 seconds, then black out and show options
+
                 clearTimeout(lanternTimeout);
                 lanternTimeout = setTimeout(() => {
 
-                    // BLACK OUT THE LIGHTS
+
                     topLight.style.background = '#111';
                     topLight.style.boxShadow = 'inset 0 0 10px #000';
                     botLight.style.background = '#111';
@@ -367,12 +367,12 @@
                     instruction.innerText = "What colors did you see (Top / Bottom)?";
                     instruction.style.color = "#e74c3c";
 
-                    // SHOW OPTIONS
+
                     generateLanternButtons(round);
 
-                }, 1200); // 1.2 Seconds
+                }, 1200);
 
-            }, 800); // 0.8s prep time between rounds
+            }, 800);
         }
 
         function generateLanternButtons(round) {
@@ -385,7 +385,7 @@
                 "Red / White", "Green / White", "White / White"
             ];
 
-            // Remove duplicates and shuffle to get 4 random options
+
             options = [...new Set(options)].sort(() => Math.random() - 0.5).slice(0, 4);
             if (!options.includes(correctAns)) options[0] = correctAns;
             options.sort(() => Math.random() - 0.5);
@@ -402,7 +402,7 @@
             });
         }
 
-        // --- RESULTS LOGIC ---
+
         function showResults(grade) {
             ishiharaSec.classList.add('hidden');
             lanternSec.classList.add('hidden');
@@ -426,7 +426,7 @@
             }
         }
 
-        // Start the app
+
         loadIshihara();
     </script>
 
