@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Defence Color Vision Test (1.2s Lantern)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f9;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 24px;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            font-weight: bold;
+        }
+
+        /* Canvas & Visuals */
+        canvas {
+            border-radius: 50%;
+            margin: 20px auto;
+            display: block;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .lantern-box {
+            background: #1a1a1a;
+            padding: 30px;
+            border-radius: 10px;
+            width: 150px;
+            margin: 20px auto;
+            border: 4px solid #000;
+        }
+
+        .light {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin: 10px auto;
+            background: #111;
+            transition: background 0.1s;
+        }
+
+        /* Buttons */
+        .btn-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            min-height: 100px;
+        }
+
+        button {
+            background: #3498db;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #2980b9;
+        }
+
+        /* Utility */
+        .hidden {
+            display: none !important;
+        }
+
+        .result-box {
+            padding: 20px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .cp1 {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .cp2 {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+        }
+
+        .cp3 {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* Resources Section */
+        .resources {
+            margin-top: 30px;
+            padding: 20px;
+            background: #eef2f5;
+            border-left: 4px solid #3498db;
+            border-radius: 4px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .resources h3 {
+            margin-top: 0;
+            color: #2c3e50;
+            font-size: 16px;
+        }
+
+        .resources ul {
+            padding-left: 20px;
+            margin-bottom: 0;
+        }
+
+        .resources li {
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .resources a {
+            color: #2980b9;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .resources a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Defence Color Vision Test</h1>
+
+        <!-- Phase 1: Ishihara -->
+        <div id="ishihara-section">
+            <p id="ishihara-status">Phase 1: Ishihara Test (Plate 1 of 5)</p>
+            <p style="font-weight: normal; font-size: 14px;">Select the number you see.</p>
+            <canvas id="plateCanvas" width="250" height="250"></canvas>
+            <div class="btn-grid" id="ishihara-btns"></div>
+        </div>
+
+        <!-- Phase 2: Lantern -->
+        <div id="lantern-section" class="hidden">
+            <p id="lantern-status">Phase 2: Lantern Test (Round 1 of 6)</p>
+            <p id="lantern-instruction" style="color: #e74c3c;">Get ready... lights will appear shortly.</p>
+            <div class="lantern-box">
+                <div id="light-top" class="light"></div>
+                <div id="light-bot" class="light"></div>
+            </div>
+            <div class="btn-grid" id="lantern-btns"></div>
+        </div>
+
+        <!-- Results -->
+        <div id="result-section" class="hidden">
+            <h2>Medical Board Result</h2>
+            <div id="final-verdict" class="result-box"></div>
+            <p id="final-details"></p>
+
+            <!-- Verified Resources & Deep Dives -->
+            <div class="resources">
+                <h3>📚 Verified Resources & Deep Dives</h3>
+                <ul>
+                    <li><strong>Clinical Ishihara Test:</strong> <a
+                            href="https://enchroma.com/pages/color-blindness-test" target="_blank">EnChroma Color
+                            Blindness Test</a> - Highly accurate dot test that defines your specific color weakness
+                        (Protan/Deutan).</li>
+                    <li><strong>Military Standard Testing:</strong> <a href="https://waggonerdiagnostics.com/"
+                            target="_blank">Waggoner Diagnostics</a> - Creators of computerized vision tests used by
+                        global military branches.</li>
+                    <li><strong>YouTube (Lantern Demo):</strong> <a
+                            href="https://www.youtube.com/results?search_query=Farnsworth+Lantern+Test+Demonstration"
+                            target="_blank">Farnsworth Lantern Real-Life Demonstration</a> - See exactly how the machine
+                        works in a dark room.</li>
+                    <li><strong>YouTube (SSB Experience):</strong> <a
+                            href="https://www.youtube.com/results?search_query=NDA+Color+Blindness+Medical+Test+CP2"
+                            target="_blank">NDA Color Blindness Medical Test CP2</a> - Listen to cadets explain their
+                        medical board experiences.</li>
+                </ul>
+            </div>
+
+            <button onclick="location.reload()" style="margin-top: 25px;">Restart Test</button>
+        </div>
+    </div>
+
+    <script>
+        // --- DATA ---
+        const ishiharaPlates = [
+            { num: 12, fg: [220, 50, 50], bg: [160, 180, 70], options: [12, 17, 21, 8] },
+            { num: 8, fg: [230, 80, 60], bg: [120, 170, 80], options: [8, 3, 6, 9] },
+            { num: 6, fg: [200, 60, 60], bg: [100, 160, 100], options: [6, 5, 9, 8] },
+            { num: 29, fg: [210, 70, 50], bg: [140, 170, 60], options: [29, 70, 26, 42] },
+            { num: 5, fg: [180, 50, 160], bg: [100, 140, 180], options: [5, 2, 8, 3] }
+        ];
+
+        // 6 Required Lantern Rounds
+        const lanternRounds = [
+            { top: 'Red', bot: 'Green', topColor: '#ff2a2a', botColor: '#2aff2a' },
+            { top: 'White', bot: 'White', topColor: '#ffffee', botColor: '#ffffee' },
+            { top: 'Green', bot: 'Red', topColor: '#2aff2a', botColor: '#ff2a2a' },
+            { top: 'Red', bot: 'White', topColor: '#ff2a2a', botColor: '#ffffee' },
+            { top: 'White', bot: 'Red', topColor: '#ffffee', botColor: '#ff2a2a' },
+            { top: 'Green', bot: 'Green', topColor: '#2aff2a', botColor: '#2aff2a' }
+        ];
+
+        // --- STATE ---
+        let currentStep = 0;
+        let ishiharaScore = 0;
+        let lanternScore = 0;
+        let lanternTimeout;
+
+        // --- DOM ELEMENTS ---
+        const ishiharaSec = document.getElementById('ishihara-section');
+        const lanternSec = document.getElementById('lantern-section');
+        const resultSec = document.getElementById('result-section');
+
+        // --- ISHIHARA LOGIC ---
+        function loadIshihara() {
+            if (currentStep >= ishiharaPlates.length) {
+                if (ishiharaScore === 5) showResults("CP-1");
+                else startLantern();
+                return;
+            }
+
+            const plate = ishiharaPlates[currentStep];
+            document.getElementById('ishihara-status').innerText = `Phase 1: Ishihara Test (Plate ${currentStep + 1} of 5)`;
+
+            drawSimplePlate(plate.num, plate.fg, plate.bg);
+
+            const btnContainer = document.getElementById('ishihara-btns');
+            btnContainer.innerHTML = '';
+
+            let opts = plate.options.sort(() => Math.random() - 0.5);
+            opts.forEach(opt => {
+                let btn = document.createElement('button');
+                btn.innerText = opt;
+                btn.onclick = () => {
+                    if (opt === plate.num) ishiharaScore++;
+                    currentStep++;
+                    loadIshihara();
+                };
+                btnContainer.appendChild(btn);
+            });
+        }
+
+        function drawSimplePlate(number, fgColor, bgColor) {
+            const canvas = document.getElementById('plateCanvas');
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, 250, 250);
+
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = 250; tempCanvas.height = 250;
+            const tCtx = tempCanvas.getContext('2d');
+            tCtx.fillStyle = '#000'; tCtx.fillRect(0, 0, 250, 250);
+            tCtx.fillStyle = '#fff';
+            tCtx.font = 'bold 120px Arial';
+            tCtx.textAlign = 'center'; tCtx.textBaseline = 'middle';
+            tCtx.fillText(number, 125, 125);
+            const imgData = tCtx.getImageData(0, 0, 250, 250).data;
+
+            for (let i = 0; i < 1000; i++) {
+                let x = Math.random() * 250;
+                let y = Math.random() * 250;
+
+                if (Math.pow(x - 125, 2) + Math.pow(y - 125, 2) > 110 * 110) continue;
+
+                let pixelIndex = (Math.floor(y) * 250 + Math.floor(x)) * 4;
+                let isText = imgData[pixelIndex] > 128;
+
+                let baseColor = isText ? fgColor : bgColor;
+
+                let r = Math.min(255, Math.max(0, baseColor[0] + (Math.random() * 40 - 20)));
+                let g = Math.min(255, Math.max(0, baseColor[1] + (Math.random() * 40 - 20)));
+                let b = Math.min(255, Math.max(0, baseColor[2] + (Math.random() * 40 - 20)));
+
+                ctx.beginPath();
+                ctx.arc(x, y, Math.random() * 3 + 2, 0, Math.PI * 2);
+                ctx.fillStyle = `rgb(${r},${g},${b})`;
+                ctx.fill();
+            }
+        }
+
+        // --- LANTERN LOGIC ---
+        function startLantern() {
+            ishiharaSec.classList.add('hidden');
+            lanternSec.classList.remove('hidden');
+
+            // Shuffle the 6 rounds so it's not predictable
+            lanternRounds.sort(() => Math.random() - 0.5);
+
+            currentStep = 0;
+            loadLantern();
+        }
+
+        function loadLantern() {
+            if (currentStep >= lanternRounds.length) {
+                if (lanternScore === 6) showResults("CP-2");
+                else showResults("CP-3");
+                return;
+            }
+
+            const round = lanternRounds[currentStep];
+            const topLight = document.getElementById('light-top');
+            const botLight = document.getElementById('light-bot');
+            const btnContainer = document.getElementById('lantern-btns');
+            const instruction = document.getElementById('lantern-instruction');
+
+            // Reset UI for the new round
+            document.getElementById('lantern-status').innerText = `Phase 2: Lantern Test (Round ${currentStep + 1} of 6)`;
+            instruction.innerText = "Memorize the colors. They will disappear in 1.2s";
+            instruction.style.color = "#2c3e50";
+            btnContainer.innerHTML = ''; // Hide buttons initially
+
+            // Blackout state before showing lights
+            topLight.style.background = '#111'; topLight.style.boxShadow = 'none';
+            botLight.style.background = '#111'; botLight.style.boxShadow = 'none';
+
+            // Show lights after a short delay
+            setTimeout(() => {
+                // TURN LIGHTS ON
+                topLight.style.background = round.topColor;
+                topLight.style.boxShadow = `0 0 25px ${round.topColor}`;
+
+                botLight.style.background = round.botColor;
+                botLight.style.boxShadow = `0 0 25px ${round.botColor}`;
+
+                // Wait exactly 1.2 seconds, then black out and show options
+                clearTimeout(lanternTimeout);
+                lanternTimeout = setTimeout(() => {
+
+                    // BLACK OUT THE LIGHTS
+                    topLight.style.background = '#111';
+                    topLight.style.boxShadow = 'inset 0 0 10px #000';
+                    botLight.style.background = '#111';
+                    botLight.style.boxShadow = 'inset 0 0 10px #000';
+
+                    instruction.innerText = "What colors did you see (Top / Bottom)?";
+                    instruction.style.color = "#e74c3c";
+
+                    // SHOW OPTIONS
+                    generateLanternButtons(round);
+
+                }, 1200); // 1.2 Seconds
+
+            }, 800); // 0.8s prep time between rounds
+        }
+
+        function generateLanternButtons(round) {
+            const btnContainer = document.getElementById('lantern-btns');
+            const correctAns = `${round.top} / ${round.bot}`;
+
+            let options = [
+                correctAns,
+                "Red / Green", "Green / Red", "White / Red",
+                "Red / White", "Green / White", "White / White"
+            ];
+
+            // Remove duplicates and shuffle to get 4 random options
+            options = [...new Set(options)].sort(() => Math.random() - 0.5).slice(0, 4);
+            if (!options.includes(correctAns)) options[0] = correctAns;
+            options.sort(() => Math.random() - 0.5);
+
+            options.forEach(opt => {
+                let btn = document.createElement('button');
+                btn.innerText = opt;
+                btn.onclick = () => {
+                    if (opt === correctAns) lanternScore++;
+                    currentStep++;
+                    loadLantern(); // Next round
+                };
+                btnContainer.appendChild(btn);
+            });
+        }
+
+        // --- RESULTS LOGIC ---
+        function showResults(grade) {
+            ishiharaSec.classList.add('hidden');
+            lanternSec.classList.add('hidden');
+            resultSec.classList.remove('hidden');
+
+            const verdictBox = document.getElementById('final-verdict');
+            const detailsBox = document.getElementById('final-details');
+
+            if (grade === "CP-1") {
+                verdictBox.innerText = "GRADE: CP-I (Pass)";
+                verdictBox.className = "result-box cp1";
+                detailsBox.innerText = "Perfect Color Vision. Fit for Flying Branch and Navy Executive.";
+            } else if (grade === "CP-2") {
+                verdictBox.innerText = `GRADE: CP-II (Pass) - Lantern Score: ${lanternScore}/6`;
+                verdictBox.className = "result-box cp2";
+                detailsBox.innerText = "Defective Safe Color Vision. Fit for Army and Ground Duty roles.";
+            } else {
+                verdictBox.innerText = `GRADE: CP-III (Fail) - Lantern Score: ${lanternScore}/6`;
+                verdictBox.className = "result-box cp3";
+                detailsBox.innerText = "Defective Unsafe Color Vision. Unfit for most combat branches.";
+            }
+        }
+
+        // Start the app
+        loadIshihara();
+    </script>
+
+</body>
+
+</html>
