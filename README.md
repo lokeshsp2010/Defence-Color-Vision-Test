@@ -1,1 +1,2 @@
+This provides links to online colour-vision tests, since colour blindness is common among men. Army aspirants like me feel heartbreak when they discover they can't clear the exam to join THE INDIAN ARMY. We break down, but I believe that if they diagnose early before attempting it, if they fail, no worries, take another path without self-regret.
 It is mainly for those people who are army aspirants and have no other way, and this gives them the pathway to find out whether they have colour blindness or not. 
